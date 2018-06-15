@@ -1,0 +1,58 @@
+<project>
+<modelVersion>4.0.0</modelVersion>
+  <groupId>Developer</groupId>
+  <artifactId>Hello_World</artifactId>
+  <version>1.0</version>  
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rpm-maven-plugin</artifactId>
+        <version>2.2.0</version>
+        <executions>
+          <execution>
+            <id>generate-rpm</id>
+            <goals>
+              <goal>rpm</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <prefix>/usr/local</prefix>
+	 <group>Application/System</group>
+          <defineStatements>
+            <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
+          </defineStatements>
+          <mappings>
+            <mapping>
+              <directory>/usr/local/hello_world</directory>
+              <filemode>550</filemode>
+              <username>root</username>
+              <groupname>root</groupname>
+              <sources>
+                <source>
+                  <location>src/script</location>
+                </source>
+              </sources>
+            </mapping>
+            <mapping>
+              <directory>/etc/systemd/system</directory>
+              <directoryIncluded>false</directoryIncluded>
+              <filemode>440</filemode>
+              <username>root</username>
+              <groupname>root</groupname>
+              <sources>
+                <source>
+                  <location>src/service</location>
+                </source>
+              </sources>
+            </mapping>
+          </mappings>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
